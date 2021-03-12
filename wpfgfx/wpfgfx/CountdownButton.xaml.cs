@@ -29,23 +29,28 @@ namespace wpfgfx
              typeof(CountdownButton), new FrameworkPropertyMetadata(null));
 
         public static readonly DependencyProperty SecondsProperty =
-                     DependencyProperty.Register("Seconds", typeof(TimeSpan),
+                     DependencyProperty.Register("Seconds", typeof(int),
                      typeof(CountdownButton), new FrameworkPropertyMetadata(null));
 
         public static readonly DependencyProperty RemainingSecondsProperty =
                 DependencyProperty.Register("RemainingSeconds", typeof(int),
                 typeof(CountdownButton), new FrameworkPropertyMetadata(null));
 
+        public static readonly DependencyProperty CommandProperty =
+                DependencyProperty.Register("Command", typeof(ICommand),
+                typeof(CountdownButton), new FrameworkPropertyMetadata(null));
 
         public CountdownButton()
         {
             InitializeComponent();
         }
 
-
-        public TimeSpan Seconds
+        public int Seconds
         {
-            get { return (TimeSpan)GetValue(SecondsProperty); }
+            get
+            {
+                return (int)GetValue(SecondsProperty);
+            }
             set
             {
                 SetValue(SecondsProperty, value);
@@ -88,19 +93,16 @@ namespace wpfgfx
             }
         }
 
-        //public string DisplayMessage
-        //{
-        //    get
-        //    {
-        //        if (Seconds. == 0)
-        //        {
-        //            return FinalMessage;
-        //        }
-        //        return string.Format(Message, RemainingSeconds);
-        //    }
-        //}
-
-
-
+        public ICommand Command
+        {
+            get
+            {
+                return (ICommand)GetValue(CommandProperty);
+            }
+            set
+            {
+                SetValue(CommandProperty, value);
+            }
+        }
     }
 }

@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              x:Name="uc"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:MessageConverter x:Key="MessageConverter"/>
+    </UserControl.Resources>
 
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Loaded">
@@ -18,19 +21,39 @@
         </EventTrigger>
     </UserControl.Triggers>
 
-    <Grid IsEnabled="{Binding ElementName=uc, Path=IsButtonEnabled}"> <!--- change to a trigger -->
-        <Button x:Name="m_Button" Width="150" Height="25"> 
+    <Grid>
+        <Button x:Name="m_Button" Width="150" Height="25" Command="{Binding ElementName=uc, Path=Command}">
             <Button.Content>
                 <TextBlock x:Name="m_TextBlock">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="{}{0} x {1} Test">  <!--- TODO create a multivalue converters -->
-                            <Binding ElementName="uc" Path="Message" />
-                            <Binding ElementName="uc" Path="RemainingSeconds" />
-                        </MultiBinding>
-                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Text">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource MessageConverter}">
+                                        <Binding ElementName="uc" Path="Message" />
+                                        <Binding ElementName="uc" Path="RemainingSeconds" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=uc, Path=RemainingSeconds}" Value="0">
+                                    <Setter Property="Text" Value="{Binding ElementName=uc, Path=FinalMessage}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
                 </TextBlock>
             </Button.Content>
-            
         </Button>
+        <Grid.Style>
+            <Style TargetType="{x:Type Grid}">
+                <Setter Property="IsEnabled" Value="False"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=uc, Path=RemainingSeconds}" Value="0" >
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
     </Grid>
 </UserControl>

@@ -5,82 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpfgfx" xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        x:Name="main"
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
-        <local:CountdownButton Seconds="0:0:5" Message="Open ({0}}" FinalMessage="Open project"/>
+        <local:CountdownButton Seconds="5" Message="Open in {seconds}" FinalMessage="Open Project" Command="{Binding ElementName=main, Path=ShowMessage}"/>
     </Grid>
-    
-
-    <!--<Grid>
-        <ListBox x:Name="list">
-            <ListBoxItem></ListBoxItem>
-            <ListBoxItem></ListBoxItem>
-            <ListBoxItem></ListBoxItem>
-            <ListBoxItem></ListBoxItem>
-            <ListBoxItem></ListBoxItem>
-            <ListBoxItem></ListBoxItem>
-            <ListBox.Triggers>
-                <EventTrigger RoutedEvent="Loaded">
-                    <BeginStoryboard >
-                        <Storyboard>
-                            <Int32Animation From="5" To="0"
-                                             Storyboard.TargetProperty="SelectedIndex"
-                                             Duration="0:0:5"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </ListBox.Triggers>
-            
-        </ListBox>
-        
-        -->
-    <!--<Rectangle x:Name="m_Rect" Width="6" Visibility="Hidden" >
-            <Rectangle.Triggers>
-                <EventTrigger RoutedEvent="Loaded">
-                    <BeginStoryboard >
-                        <Storyboard>
-                            <DoubleAnimation From="5" To="0"
-                                             Storyboard.TargetProperty="Width"
-                                             Duration="0:0:5"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Rectangle.Triggers>
-        </Rectangle>-->
-
-    <!--<Button x:Name="m_Button" IsEnabled="False" Width="150" Height="25">
-
-            <Button.Content>
-                <TextBlock x:Name="m_TextBlock">
-                    <TextBlock.Text>
-                        <MultiBinding StringFormat="Ready in {0}">
-                            <Binding ElementName="list" Path="SelectedIndex" UpdateSourceTrigger="PropertyChanged"/>
-                        </MultiBinding>
-                    </TextBlock.Text>
-                </TextBlock>
-            </Button.Content>
-
-            <Button.Triggers>
-                <EventTrigger RoutedEvent="Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <BooleanAnimationUsingKeyFrames Storyboard.TargetName="m_Button" Storyboard.TargetProperty="IsEnabled">
-                                <DiscreteBooleanKeyFrame Value="False" KeyTime="0:0:0" />
-                                <DiscreteBooleanKeyFrame Value="True" KeyTime="0:0:5" />
-                            </BooleanAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Button.Triggers>
-
-        </Button>-->
-    <!--
-
-        <local:MessageUserControl Message="Bollocks"/>
-
-    </Grid>-->
-
-
 
 </Window>
